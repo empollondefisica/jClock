@@ -30,18 +30,18 @@ public class jClock extends Application
     private double  startX;
     private double  startY;
 
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
-        Application.launch( args );
+        Application.launch(args);
     }
 
-    public void start( Stage stage )
+    public void start(Stage stage)
     {
         moving  = false;
         opacity = 0.80;
 
         final Group   group      = new Group();
-        final Scene   scene      = new Scene( group, 400, 400 );
+        final Scene   scene      = new Scene(group, 400, 400);
         final Pane    pane       = new Pane();
         final Ellipse clockFace  = new Ellipse();
         final Line    secondHand = new Line();
@@ -49,52 +49,51 @@ public class jClock extends Application
         final Line    hourHand   = new Line();
         final Label   quitLabel  = new Label("X");
 
-        clockFace.centerXProperty().bind( scene.widthProperty().divide( 2.0 ) );
-        clockFace.centerYProperty().bind( scene.heightProperty().divide( 2.0 ) );
-        clockFace.radiusXProperty().bind( scene.widthProperty().divide( 2.0 ).subtract( 5.0 ) );
-        clockFace.radiusYProperty().bind( scene.heightProperty().divide( 2.0 ).subtract( 5.0 ) );
-        clockFace.setFill( Color.WHITE );
+        clockFace.centerXProperty().bind(scene.widthProperty().divide(2.0));
+        clockFace.centerYProperty().bind(scene.heightProperty().divide(2.0));
+        clockFace.radiusXProperty().bind(scene.widthProperty().divide(2.0).subtract(5.0));
+        clockFace.radiusYProperty().bind(scene.heightProperty().divide(2.0).subtract(5.0));
+        clockFace.setFill(Color.WHITE);
         clockFace.setStroke(Color.BLACK);
         clockFace.setFill(Color.rgb(255,255,255,opacity));
         clockFace.setEffect(new DropShadow());
 
-        secondHand.setStartX( clockFace.getCenterX() );
-        secondHand.setStartY( clockFace.getCenterY() );
-        secondHand.setEndX( clockFace.getCenterX() );
-        secondHand.setEndY( clockFace.getCenterY() - 160.0 );
-        secondHand.setSmooth( true );
+        secondHand.setStartX(clockFace.getCenterX());
+        secondHand.setStartY(clockFace.getCenterY());
+        secondHand.setEndX(clockFace.getCenterX());
+        secondHand.setEndY(clockFace.getCenterY() - 160.0);
+        secondHand.setSmooth(true);
 
-        minuteHand.setStartX( clockFace.getCenterX() );
-        minuteHand.setStartY( clockFace.getCenterY() );
-        minuteHand.setEndX( clockFace.getCenterX() );
-        minuteHand.setEndY( clockFace.getCenterY() - 180.0 );
-        minuteHand.setSmooth( true );
+        minuteHand.setStartX(clockFace.getCenterX());
+        minuteHand.setStartY(clockFace.getCenterY());
+        minuteHand.setEndX(clockFace.getCenterX());
+        minuteHand.setEndY(clockFace.getCenterY() - 180.0);
+        minuteHand.setSmooth(true);
 
-        hourHand.setStartX( clockFace.getCenterX() );
-        hourHand.setStartY( clockFace.getCenterY() );
-        hourHand.setEndX( clockFace.getCenterX() );
-        hourHand.setEndY( clockFace.getCenterY() - 100.0 );
-        hourHand.setSmooth( true );
+        hourHand.setStartX(clockFace.getCenterX());
+        hourHand.setStartY(clockFace.getCenterY());
+        hourHand.setEndX(clockFace.getCenterX());
+        hourHand.setEndY(clockFace.getCenterY() - 100.0);
+        hourHand.setSmooth(true);
 
-        pane.getChildren().add( clockFace );
-        pane.getChildren().add( secondHand );
-        pane.getChildren().add( minuteHand );
-        pane.getChildren().add( hourHand );
-        pane.getChildren().add( quitLabel );
+        pane.getChildren().add(clockFace);
+        pane.getChildren().add(secondHand);
+        pane.getChildren().add(minuteHand);
+        pane.getChildren().add(hourHand);
+        pane.getChildren().add(quitLabel);
 
-        for( int i = 0; i < 12; i++ )
+        for(int i = 0; i < 12; ++i)
         {
             Line line = new Line();
-            line.setStartX( clockFace.getCenterX() + 170.0 * Math.cos( (double)i * Math.PI / 6.0  - Math.PI / 2.0 ) );
-            line.setStartY( clockFace.getCenterY() + 170.0 * Math.sin( (double)i * Math.PI / 6.0  - Math.PI / 2.0 ) );
-            line.setEndX( clockFace.getCenterX() + 190.0 * Math.cos( (double)i * Math.PI / 6.0  - Math.PI / 2.0 ) );
-            line.setEndY( clockFace.getCenterY() + 190.0 * Math.sin( (double)i * Math.PI / 6.0  - Math.PI / 2.0 ) );
+            line.setStartX(clockFace.getCenterX() + 170.0 * Math.cos((double)i * Math.PI / 6.0  - Math.PI / 2.0));
+            line.setStartY(clockFace.getCenterY() + 170.0 * Math.sin((double)i * Math.PI / 6.0  - Math.PI / 2.0));
+            line.setEndX(clockFace.getCenterX() + 190.0 * Math.cos((double)i * Math.PI / 6.0  - Math.PI / 2.0));
+            line.setEndY(clockFace.getCenterY() + 190.0 * Math.sin((double)i * Math.PI / 6.0  - Math.PI / 2.0));
 
-            pane.getChildren().add( line );
+            pane.getChildren().add(line);
         }
 
         quitLabel.setShape(new Circle(0, 0, 25));
-        quitLabel.setEffect(new DropShadow());
         quitLabel.setMinWidth(25);
         quitLabel.setMinHeight(25);
         quitLabel.setAlignment(Pos.CENTER);
@@ -102,22 +101,24 @@ public class jClock extends Application
         quitLabel.setOnMouseEntered(buildMouseEnteredEventHandler(stage, quitLabel));
         quitLabel.setOnMouseClicked(buildMouseClickedEventHandler(stage, quitLabel));
         quitLabel.setOnMouseExited(buildMouseExitedEventHandler(stage, quitLabel));
+        quitLabel.setLayoutX(10);
+        quitLabel.setLayoutY(10);
 
-        pane.prefWidthProperty().bind( scene.widthProperty() );
-        pane.prefHeightProperty().bind( scene.heightProperty() );
-        pane.setStyle( "-fx-background-color: rgba(0,0,0,0.0)" );
+        pane.prefWidthProperty().bind(scene.widthProperty());
+        pane.prefHeightProperty().bind(scene.heightProperty());
+        pane.setStyle("-fx-background-color: rgba(0,0,0,0.0)");
         pane.setBackground(Background.EMPTY);
         pane.setOnMousePressed(buildMousePressedEventHandler(stage, clockFace));
         pane.setOnMouseDragged(buildMouseDraggedEventHandler(stage, clockFace));
         pane.setOnMouseReleased(buildMouseReleasedEventHandler(stage,clockFace));
         pane.setOnScroll(buildScrollEventHandler(clockFace));
 
-        group.getChildren().add( pane );
+        group.getChildren().add(pane);
 
         scene.setFill(Color.rgb(0,0,0,0.0));
 
         stage.getIcons().setAll(new Image("file:resources/clock_icon.png"));
-        stage.setResizable( false );
+        stage.setResizable(false);
         stage.setTitle("jClock");
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -130,12 +131,12 @@ public class jClock extends Application
             long hour   = 0;
             long now    = 0;
 
-            public void handle( long ignore )
+            public void handle(long ignore)
             {
                 now    = System.currentTimeMillis();
-                second = ( now / 1000 ) % 60;
-                minute = ( now / 1000 / 60 ) % 60;
-                hour   = ( ( now / 1000 / 3600 ) - 4 ) % 12;
+                second = (now / 1000) % 60;
+                minute = (now / 1000 / 60) % 60;
+                hour   = ((now / 1000 / 3600) - 4) % 12;
 
                 Platform.runLater(new Runnable()
                 {
@@ -186,6 +187,7 @@ public class jClock extends Application
             public void handle(MouseEvent mouseEvent)
             {
                 quitLabel.setFont(Font.font(15));
+                quitLabel.setEffect(new DropShadow());
             }
         };
     }
@@ -208,6 +210,7 @@ public class jClock extends Application
             public void handle(MouseEvent mouseEvent)
             {
                 quitLabel.setFont(Font.font(12));
+                quitLabel.setEffect(null);
             }
         };
     }
@@ -247,7 +250,7 @@ public class jClock extends Application
                 }
                 else
                 {
-                    if(opacity > 0.2)
+                    if(opacity > 0.4)
                     {
                         opacity -= 0.1;
                     }
